@@ -1,0 +1,11 @@
+numpy
+oandapyV20
+pandas
+pytz
+datetime
+requests
+keras==2.4.3
+tensorflow==2.4.1
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
