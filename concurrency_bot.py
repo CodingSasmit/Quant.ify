@@ -32,12 +32,12 @@ service_account_file = 'google_key.json'
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 credentials = service_account.Credentials.from_service_account_file(service_account_file, scopes=SCOPES)
 
-SPREADSHEET_ID = '1g1ghv8778tTjkO5G4p1kad8dGqkHZAfIY0B-Mh5o0o0'
+SPREADSHEET_ID = 'SPREADSHEET ID'
 service = build('sheets', 'v4', credentials=credentials)
 sheet = service.spreadsheets()
 
 class SingleCurrencyTrader:
-    client = oandapyV20.API(access_token='199d815eb1f94c176a86dd3d5cc991a5-5e6ff7a15c524bf65fc0af5ae9a11972')
+    client = oandapyV20.API(access_token='USE_OWN_ACCESS_TOKEN')
     def __init__(self, name, instrument, account, cutoff, max_spread, model_path):
         self.name = name
         self.instrument = instrument
@@ -336,25 +336,12 @@ for i in pairs:
 hour = False
 
 while True:
-    # try:
     now = datetime.now(UTC) - timedelta(seconds=5)
     if now.minute==0:
         hour=False
     for i in pairs:
         i.update()
     pred = [i.predict() for i in pairs]
-
-    # with open('output.txt', 'w') as output:
-    #     output.truncate(0)
-    #     output.write('Current Time: {}\n'.format(now.strftime('%H:%M:%S')))
-    #     for i, p in zip(pairs, pred):
-    #         output.write(i.name+'\tC: '+str(i.cutoff)+',\t')
-    #         output.write('[{}, {}, {}], '.format(p[0], p[1], p[2]))
-    #         wr = float(i.successful_trades)/i.total_trades if i.total_trades>0 else 0
-    #         output.write("{} good trades out of {}, WR: {}, ".format(i.successful_trades, i.total_trades, wr))
-    #         output.write("PL: {}\n".format(i.actual_pl))
-    #     output.flush()
-    #     output.close()
 
     v = [['Current Time: {}\n'.format(now.strftime('%H:%M:%S'))]]
     sheet.values().update(spreadsheetId=SPREADSHEET_ID, range='Sheet1!J1',
@@ -379,10 +366,3 @@ while True:
     os.system('clear')
     print('running...')
     time.sleep(10)
-    # except Exception as err:
-    #     print(err)
-    #     try:
-    #         SingleCurrencyTrader.client = oandapyV20.API(access_token='199d815eb1f94c176a86dd3d5cc991a5-5e6ff7a15c524bf65fc0af5ae9a11972')
-    #     except:
-    #         print('Connection Errors! - Retrying Now')
-    #         continue
