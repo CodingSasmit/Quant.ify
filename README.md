@@ -24,7 +24,7 @@ Price prediction using a linear regression model to predict the exact future pri
   * 4 months for testing data
 * Input: 10 hours worth of minute candles
 
-###### When tested, this iteration performed equivalent to random guessing
+When tested, this iteration performed equivalent to random guessing
 
 ## Iteration 2
 * Used method 1 of defining data
@@ -35,15 +35,17 @@ Price prediction using a linear regression model to predict the exact future pri
 * Added two features:
   * change (close - open) 
   * intraday range (high - low)
-###### This iteration performed slightly better but nowhere near the desired results, overall lost -20% per year
 
-### Realized that lower level time frames often respect the support and resistance levels created at higher timeframes, thus added a second LSTM input to the model. So now the inputs are 10 hours of 5 minutes candles (120 candles) and 90 daily candles with change and intraday range, this way the model can make decisions based on the long term trends (long term up trend/down trend)
-
-This iteration also performed slightly better again, but there was no clear pattern emerging that it was able to capitalize on to profit consistently
-
-### After this realization, I played around with multiple different combinations of timeframes in conjuction with Iteration 3
+This iteration performed slightly better but nowhere near the desired results, overall lost -20% per year
 
 ## Iteration 3
+Realized that lower level time frames often respect the support and resistance levels created at higher timeframes, thus added a second LSTM input to the model. So now the inputs are 10 hours of 5 minutes candles (120 candles) and 90 daily candles with change and intraday range, this way the model can make decisions based on the long term trends (long term up trend/down trend)
+
+This model produced a net loss of -18% per year.
+
+### After this realization, I played around with multiple different combinations of timeframes in conjuction with Iteration 4
+
+## Iteration 4
 Decided to add in more technical indicators that day-traders often use:
 * CCI
 * RSI
@@ -56,29 +58,29 @@ This resulted in some level of overfitting and thus I moved these technical indi
 
 This model produced a net loss of -15% per year.
 
-## Iteration 4
+## Iteration 5
 I Kept playing around with timeframes and decided on hourly candles (H1) mixed with 4 hour candles (H4). Analyzing hourly candles revealed that they seemed to create enough stability to find patterns and still fit the support and resistance levels created by the 4 hour chart. I finally settled on using 120 hourly candles and 180 H4 candles plus the technical indicators of the last hour candle as a third input.
 
 This model produced a net loss of -10% per year.
 
-## Iteration 5
+## Iteration 6
 Brainstorming for even more features led to: day of week and time of day (intuition: the forex markets trade 24 hours a day, but the pair I am focusing on EUR/USD is traded through different markets based on the time of day. The three sessions are: north American, European, and Asian. Thus there may be patterns in the way the pair is traded based on the time of day which determines which of the 3 session the pair is currently trading in.)
 
 This model produced a net loss of -6% per year.
 
-## Iteration 6
+## Iteration 7
 Further brainstorming led to binary features to show whether the current price is over/under the 50 ema, 100 ma, and 200 ema. This can be seen as up/down over the short-term, mid-term, and long-term. These 3 features could further help. The model to predict the current price.
 
 This model produced a net loss of -6% per year.
 
-## Iteration 7
+## Iteration 8
 Even further brainstroming led to adding heiken ashi candles as further features, and a binary feature for whether a candle is green or red. Thus both LSTM inputs had 10 features, 4 from the original candle, green/red original candle, 4 from heiken ashi candle, green/red heiken ashi candle. This iteration alone added 6 new features per candle, which we have 120 + 180 of so we added 1800 inputs to the model in this iteration alone!
 
 This model produced a profit of 50% per year.
 
 ### After also testing the 3 different methods in conjunction with most of these overall model iterations, I finally settled on method number 2, define up or down after 5 hours. The way this would trade is at the end of every hour input the live data into the model, if it predicts up or down -> open a trade in that direction, if neutral -> do nothing. Exactly 5 hours later close the trade, hopefully we profit if the model was right, or we lose money if we were wrong.
 
-## Iteration 8
+## Iteration 9
 Also added more and more data slowly, settled on 10 years worth of data with 7 for training and 3 for testing. This seemed very promising with some models creating a 110% return per year on the entire 3 years worth of test data, which was the last 3 years.
 
 
