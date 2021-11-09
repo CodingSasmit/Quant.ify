@@ -88,7 +88,7 @@ Also added more and more data slowly, settled on 10 years worth of data with 7 f
 
 ### Thus, I learned how to use docker, and ran it locally first through a container, so that my program would be independent. Then I was able to deploy my container to AWS, and there it currently resides running 24/7. 
 
-### I also learned how to use google sheets api to document the overall model performances: [spreadsheet](https://docs.google.com/spreadsheets/d/1g1ghv8778tTjkO5G4p1kad8dGqkHZAfIY0B-Mh5o0o0/edit#gid=0)
+### I also learned how to use google sheets api to document the overall model performances: [spreadsheet](https://docs.google.com/spreadsheets/d/1g1ghv8778tTjkO5G4p1kad8dGqkHZAfIY0B-Mh5o0o0/edit?usp=sharing)
 
 ### It has now been running on live data for about 2 months, and it is still seemingly random, most of the models are currently green but not by large margins. I believe that as of now, the project is unable to definitively work on live data, thus not to be used with real money. It is possible that the current markets are too complex for such patterns to even exist and be profitable.
 
